@@ -23,6 +23,8 @@ function WebAudioAnalyser(audio, ctx, opts) {
   this.splitter = null
   this.merger   = null
   this.source   = audio
+  
+  if (opts.fftSize) this.analyser.fftSize = opts.fftSize;
 
   if (!this.stereo) {
     this.output = this.source
