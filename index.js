@@ -33,6 +33,9 @@ function WebAudioAnalyser(audio, ctx, opts) {
   } else {
     this.analyser = [this.analyser]
     this.analyser.push(ctx.createAnalyser())
+    for (var i = 0; i < 2; i++) {
+      if (opts.fftSize) this.analyser[i].fftSize = opts.fftSize;
+    }
 
     this.splitter = ctx.createChannelSplitter(2)
     this.merger   = ctx.createChannelMerger(2)
