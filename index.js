@@ -23,12 +23,11 @@ function WebAudioAnalyser(audio, ctx, opts) {
   this.splitter = null
   this.merger   = null
   this.source   = audio
-  
-  if (opts.fftSize) this.analyser.fftSize = opts.fftSize;
 
   if (!this.stereo) {
     this.output = this.source
     this.source.connect(this.analyser)
+    if (opts.fftSize) this.analyser.fftSize = opts.fftSize;
     if (this.audible)
       this.analyser.connect(ctx.destination)
   } else {
@@ -42,6 +41,7 @@ function WebAudioAnalyser(audio, ctx, opts) {
     this.source.connect(this.splitter)
 
     for (var i = 0; i < 2; i++) {
+      if (opts.fftSize) this.analyser[i].fftSize = opts.fftSize;
       this.splitter.connect(this.analyser[i], i, 0)
       this.analyser[i].connect(this.merger, 0, i)
     }
